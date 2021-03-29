@@ -1,10 +1,11 @@
 import cv2 as cv
 import numpy as np
 import math
+import pyzbar.pyzbar as pyzbar
 
 # Variable
 
-camID = 1  # camera ID, or pass string as filename. to the camID
+camID = 0  # camera ID, or pass string as filename. to the camID
 
 # Real world measured Distance and width of QR code
 KNOWN_DISTANCE = 24.0  # inches
@@ -35,6 +36,27 @@ def eucaldainDistance(x, y, x1, y1):
     return eucaldainDist
 
 
+def DetectQRcode(image):
+
+    # convert the color image to gray scale image
+    Gray = cv.cvtColor(image, cv.COLOR_BGR2GRAY)
+
+    # create QR code object
+    objectQRcode = pyzbar.decode(Gray)
+    for obDecoded in objectQRcode:
+
+        points = obDecoded.polygon
+        if len(points) > 4:
+            hull = cv.convexHull(
+                np.array([points for point in points], dtype=np.float32))
+            hull = list(map(tuple, np.squeeze(hull)))
+        else:
+            hull = points
+        n = len(hull)
+        for j in range(0, n):
+            cv.line(image, hull[j], hull[(j + 1) % n], ORANGE, 2)
+
+
 # creating camera object
 camera = cv.VideoCapture(camID)
 # TODO create QR code detector fucntion
@@ -44,7 +66,9 @@ camera = cv.VideoCapture(camID)
 
 while True:
     ret, frame = camera.read()
+    DetectQRcode(frame)
     cv.imshow("frame", frame)
+
     key = cv.waitKey(1)
     if key == ord('q'):
         break
