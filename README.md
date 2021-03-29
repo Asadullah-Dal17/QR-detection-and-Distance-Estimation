@@ -5,6 +5,6 @@ QR code Detection and Distance Estimation opencv Python, it more accurate versio
 
 - [x] Euclidean distance (to find the **width of QR code**, more *accurately*)
   
-- [ ] Find Distance between camera and QR code
+- [x] Find Distance between camera and QR code
   
 - [ ] Improve the vsual representation 
