@@ -48,7 +48,18 @@ def focalLengthFinder(knowDistance, knownWidth, widthInImage):
     focalLength = ((widthInImage * knowDistance) / knownWidth)
     return focalLength
 
+def distanceFinder(focalLength, knownWidth, widthInImage):
+    '''
+    This function basically estimate the distance, it takes the three arguments: focallength, knownwidth, widthInImage
+    :param1 focalLength: focal length found through another function .
+    param2 knownWidth : it is the width of object in the real world.
+    param3 width of object: the width of object in the image .
+    :returns the distance:
 
+
+    '''
+    distance = ((knownWidth * focalLength) / widthInImage)
+    return distance
 
 def DetectQRcode(image):
     codeWidth = 0
