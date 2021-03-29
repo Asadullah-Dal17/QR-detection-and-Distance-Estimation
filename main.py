@@ -35,6 +35,20 @@ def eucaldainDistance(x, y, x1, y1):
 
     return eucaldainDist
 
+# focal length finder function
+
+
+def focalLengthFinder(knowDistance, knownWidth, widthInImage):
+    '''This function calculates the focal length. which is used to find the distance between  object and camera 
+    :param1 knownDistance(int/float) : it is Distance form object to camera measured in real world.
+    :param2 knownWidth(float): it is the real width of object, in real world
+    :param3 widthInImage(float): the width of object in the image, it will be in pixels.
+    return FocalLength(float): '''
+    
+    focalLength = ((widthInImage * knowDistance) / knownWidth)
+    return focalLength
+
+
 
 def DetectQRcode(image):
     codeWidth = 0
