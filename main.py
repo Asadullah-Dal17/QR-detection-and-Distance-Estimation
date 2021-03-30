@@ -1,10 +1,11 @@
+
 import cv2 as cv
 import numpy as np
 import math
 import pyzbar.pyzbar as pyzbar
+import betterLook
 
 # Variable
-
 camID = 1  # camera ID, or pass string as filename. to the camID
 
 # Real world measured Distance and width of QR code
@@ -13,7 +14,7 @@ KNOWN_WIDTH = 5.0  # inches
 
 # define the fonts
 fonts = cv.FONT_HERSHEY_COMPLEX
-
+Pos =(50,50)
 # colors (BGR)
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
@@ -63,7 +64,9 @@ def distanceFinder(focalLength, knownWidth, widthInImage):
 
 def DetectQRcode(image):
     codeWidth = 0
-
+    x, y = 0, 0
+    euclaDistance = 0
+    global Pos 
     # convert the color image to gray scale image
     Gray = cv.cvtColor(image, cv.COLOR_BGR2GRAY)
 
@@ -88,6 +91,8 @@ def DetectQRcode(image):
         # finding width of QR code in the image 
         x, x1 = hull[0][0], hull[1][0]
         y, y1 = hull[0][1], hull[1][1]
+        
+        Pos = hull[3]
         # using Eucaldain distance finder function to find the width 
         euclaDistance = eucaldainDistance(x, y, x1, y1)
 
@@ -102,7 +107,7 @@ camera = cv.VideoCapture(camID)
 
 refernceImage = cv.imread("QR.jpg")
 # getting the width of QR code in the reference image 
-Rwidth = DetectQRcode(refernceImage)
+Rwidth= DetectQRcode(refernceImage)
 
 # finding the focal length 
 focalLength = focalLengthFinder(KNOWN_DISTANCE, KNOWN_WIDTH, Rwidth)
@@ -113,14 +118,16 @@ while True:
     ret, frame = camera.read()
 
     # finding width of QR code width in the frame 
-    codeWidth = DetectQRcode(frame)
-    
+    codeWidth= DetectQRcode(frame)
+    # print(Value)
     # print(codeWidth)
     
     if codeWidth is not None:
         # print("not none")
         Distance = distanceFinder(focalLength, KNOWN_WIDTH, codeWidth)
-        cv.putText(frame, f"Distance: {Distance}", (50,50), fonts, 0.6, (GOLD), 2)
+        # cv.putText(frame, f"Distance: {Distance}", (50,50), fonts, 0.6, (GOLD), 2)
+        
+        betterLook.showText(frame, f"Distnace: {round(Distance,2)} Inches", Pos, GOLD, int(Distance*4.5))
 
     cv.imshow("frame", frame)
     key = cv.waitKey(1)
