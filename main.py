@@ -24,7 +24,7 @@ GOLD = (0, 255, 215)
 YELLOW = (0, 255, 255)
 ORANGE = (0, 165, 230)
 
-# function
+# functions
 
 # finding Distance between two points
 
@@ -78,33 +78,51 @@ def DetectQRcode(image):
             hull = list(map(tuple, np.squeeze(hull)))
         else:
             hull = points
+
         n = len(hull)
+        # draw the lines on the QR code 
         for j in range(0, n):
-            print(j, "      ", (j + 1) % n, "    ", n)
+            # print(j, "      ", (j + 1) % n, "    ", n)
 
             cv.line(image, hull[j], hull[(j + 1) % n], ORANGE, 2)
-
+        # finding width of QR code in the image 
         x, x1 = hull[0][0], hull[1][0]
         y, y1 = hull[0][1], hull[1][1]
+        # using Eucaldain distance finder function to find the width 
         euclaDistance = eucaldainDistance(x, y, x1, y1)
 
+        # retruing the Eucaldain distance/ QR code width other words  
         return euclaDistance
 
 
 # creating camera object
 camera = cv.VideoCapture(camID)
-# TODO create QR code detector fucntion
-# TODO create Eucaldian Distance finder funciton
-# TODO focal lenthf finder funciton
-# TODO Distance finder funciton
+
+
+
+refernceImage = cv.imread("QR.jpg")
+# getting the width of QR code in the reference image 
+Rwidth = DetectQRcode(refernceImage)
+
+# finding the focal length 
+focalLength = focalLengthFinder(KNOWN_DISTANCE, KNOWN_WIDTH, Rwidth)
+print("Focal length:  ", focalLengthFinder)
+
 
 while True:
     ret, frame = camera.read()
+
+    # finding width of QR code width in the frame 
     codeWidth = DetectQRcode(frame)
-    print(codeWidth)
+    
+    # print(codeWidth)
+    
+    if codeWidth is not None:
+        # print("not none")
+        Distance = distanceFinder(focalLength, KNOWN_WIDTH, codeWidth)
+        cv.putText(frame, f"Distance: {Distance}", (50,50), fonts, 0.6, (GOLD), 2)
 
     cv.imshow("frame", frame)
-
     key = cv.waitKey(1)
     if key == ord('q'):
         break
