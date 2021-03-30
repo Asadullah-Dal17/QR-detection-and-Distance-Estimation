@@ -113,6 +113,7 @@ Rwidth= DetectQRcode(refernceImage)
 focalLength = focalLengthFinder(KNOWN_DISTANCE, KNOWN_WIDTH, Rwidth)
 print("Focal length:  ", focalLengthFinder)
 
+counter =0
 
 while True:
     ret, frame = camera.read()
@@ -123,14 +124,22 @@ while True:
     # print(codeWidth)
     
     if codeWidth is not None:
+        
         # print("not none")
         Distance = distanceFinder(focalLength, KNOWN_WIDTH, codeWidth)
         # cv.putText(frame, f"Distance: {Distance}", (50,50), fonts, 0.6, (GOLD), 2)
         
-        betterLook.showText(frame, f"Distnace: {round(Distance,2)} Inches", Pos, GOLD, int(Distance*4.5))
+        betterLook.showText(frame, f"Distnace: {round(Distance,2)} Inches", Pos, GOLD, int(Distance * 4.5))
+    
+    
 
     cv.imshow("frame", frame)
     key = cv.waitKey(1)
+    if key == ord('s'):
+        # saving frame
+        counter += 1
+        print("frame saved")
+        cv.imwrite(f"frames/frame{counter}.png", frame)
     if key == ord('q'):
         break
 camera.release()

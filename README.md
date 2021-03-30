@@ -9,4 +9,4 @@ QR code Detection and Distance Estimation opencv Python, it more accurate versio
 
 - [x] Distance is calculated and Displayed on Screen :bulb: 
   
-- [ ] Improve the Visual representation :green_heart:
+- [x] Improve the Visual representation :green_heart:
