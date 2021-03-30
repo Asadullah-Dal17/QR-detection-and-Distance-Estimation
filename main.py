@@ -103,8 +103,6 @@ def DetectQRcode(image):
 # creating camera object
 camera = cv.VideoCapture(camID)
 
-
-
 refernceImage = cv.imread("QR.jpg")
 # getting the width of QR code in the reference image 
 Rwidth= DetectQRcode(refernceImage)
