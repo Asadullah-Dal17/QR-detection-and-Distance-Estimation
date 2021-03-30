@@ -1,7 +1,10 @@
+
 import cv2 as cv
 import numpy as np
 import math
 import pyzbar.pyzbar as pyzbar
+import betterLook
+
 
 # Variable
 
@@ -120,7 +123,9 @@ while True:
     if codeWidth is not None:
         # print("not none")
         Distance = distanceFinder(focalLength, KNOWN_WIDTH, codeWidth)
-        cv.putText(frame, f"Distance: {Distance}", (50,50), fonts, 0.6, (GOLD), 2)
+        # cv.putText(frame, f"Distance: {Distance}", (50,50), fonts, 0.6, (GOLD), 2)
+        
+        betterLook.showText(frame, f"Distnace: {Distance}", (50,50), GOLD)
 
     cv.imshow("frame", frame)
     key = cv.waitKey(1)
