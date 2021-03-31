@@ -4,7 +4,7 @@ QR code Detection and Distance Estimation opencv Python, it more accurate versio
 
 ## Real time Distance Estimation
 
-<img src="frames/frame5.png" alt="Output of QR code detection">
+<img src="resultgif.gif" alt="Output of QR code detection">
 
 
 ## Installation
