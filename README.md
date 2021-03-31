@@ -1,7 +1,7 @@
 # QR detection and Distance Estimation using Single:one: camera :camera: opencv python :eye::eye:
 
 QR code Detection and Distance Estimation opencv Python, it more accurate version of distance Estimation, [face detection and distnace Estimation](https://github.com/Asadullah-Dal17/Distance_measurement_using_single_camera), and it is open source project, feel free to contribute.
- 
+
 ## Real time Distance Estimation
 
 <img src="frames/frame5.png" alt="Output of QR code detection">
@@ -55,6 +55,7 @@ Requirements:
 - Run
   
     `python3 main.py`
+---
 ### TO DO
 <!-- markdownlint-capture -->
 <!-- markdownlint-enable-file MD000 -->
@@ -70,9 +71,11 @@ Requirements:
 - [x] Improve the Visual representation :green_heart:
 - [ ] QR code Following Robot/Drone [Example](https://github.com/Asadullah-Dal17/Face-Following-Robot-using-Distance-Estimation)
 
+----
 
 I have create complete video on Youtube about [Distance Estimation uisng  single camera opencv python](https://www.youtube.com/watch?v=zzJfAw3ASzY), which explains how things works
 
+---
 if you have any Query feel free to ask me on my Social Media.
 
 ## :green_heart: Join Me on Social Media :green_heart:
