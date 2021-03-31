@@ -6,10 +6,10 @@ import pyzbar.pyzbar as pyzbar
 import betterLook
 
 # Variable
-camID = 1  # camera ID, or pass string as filename. to the camID
+camID = 0  # camera ID, or pass string as filename. to the camID
 
 # Real world measured Distance and width of QR code
-KNOWN_DISTANCE = 24.0  # inches
+KNOWN_DISTANCE = 30.1  # inches
 KNOWN_WIDTH = 5.0  # inches
 
 # define the fonts
@@ -99,11 +99,14 @@ def DetectQRcode(image):
         # retruing the Eucaldain distance/ QR code width other words  
         return euclaDistance
 
+# video recording 
+fourcc = cv.VideoWriter_fourcc(*'XVID')
+out = cv.VideoWriter('Demo.mp4', fourcc, 15.0, (640, 480))
 
 # creating camera object
 camera = cv.VideoCapture(camID)
 
-refernceImage = cv.imread("QR.jpg")
+refernceImage = cv.imread("referenceImage2.png")
 # getting the width of QR code in the reference image 
 Rwidth= DetectQRcode(refernceImage)
 
@@ -128,7 +131,7 @@ while True:
         # cv.putText(frame, f"Distance: {Distance}", (50,50), fonts, 0.6, (GOLD), 2)
         
         betterLook.showText(frame, f"Distnace: {round(Distance,2)} Inches", Pos, GOLD, int(Distance * 4.5))
-    
+    out.write(frame)
     
 
     cv.imshow("frame", frame)
@@ -142,3 +145,4 @@ while True:
         break
 camera.release()
 cv.destroyAllWindows()
+out.release()
